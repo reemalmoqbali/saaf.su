@@ -2,73 +2,188 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>نظام الكشف المبكر عن سوسة النخيل الحمراء</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 :root {
-  --main:#4e6b2b;
-  --accent:#a67c52;
+  --main:#1b5e20;
+  --accent:#388e3c;
   --light:#fffbe6;
-  --dark:#1b1b1b;
+  --dark:#0b0b0b;
 }
+
 *{box-sizing:border-box;transition:all .3s ease;}
 body{margin:0;font-family:'Tajawal',sans-serif;background:var(--dark);color:white;overflow-x:hidden;}
-/* Home */
-.home{height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;background:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAqqkE-xpn2wWigL86lhw9nelrrL4HDp88mpx8kYGoL8H1-bqcwgS4RUjckfmmt6W79J72P3IGSLh8yDiOW9nEhra4H98J1AXXVogAZTyrnQ&s=10.jpg')center/cover no-repeat;position:relative;}
-.home::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,0.6);}
-.home-content{position:relative;text-align:center;}
-.home-content h1{font-size:2.6em;margin-bottom:25px;color:#fff;}
-.nav-bar{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:40px;padding:10px 25px;display:flex;gap:20px;justify-content:center;}
-.nav-bar button{border:none;border-radius:25px;padding:10px 20px;font-size:1em;cursor:pointer;background:var(--main);color:white;}
-.nav-bar button:hover{background:var(--accent);}
-/* Pages */
-.page{position:absolute;top:0;left:0;width:100%;height:100vh;background:var(--light);color:#333;display:none;opacity:0;}
-.page.active{display:block;opacity:1;animation:fadeIn .5s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
-/* Forms */
+/* 🌴 الصفحة الرئيسية */
+.home{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  background:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAqqkE-xpn2wWigL86lhw9nelrrL4HDp88mpx8kYGoL8H1-bqcwgS4RUjckfmmt6W79J72P3IGSLh8yDiOW9nEhra4H98J1AXXVogAZTyrnQ&s=10.jpg') center/cover no-repeat;
+  position:fixed;
+  inset:0;
+  z-index:1;
+  transition:opacity .6s ease;
+}
+.home.hidden{opacity:0;pointer-events:none;}
+.home::before{
+  content:"";
+  position:absolute;inset:0;
+  background:rgba(0,0,0,0.8);
+}
+.home-content{
+  position:relative;
+  text-align:center;
+  z-index:2;
+}
+.home-content h1{
+  font-size:2.8em;
+  margin-bottom:25px;
+  color:#fff;
+  text-shadow:0 4px 10px rgba(0,0,0,0.7);
+}
+.nav-bar{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+  border-radius:40px;
+  padding:12px 25px;
+  display:flex;
+  gap:20px;
+  justify-content:center;
+}
+.nav-bar button{
+  border:none;
+  border-radius:25px;
+  padding:12px 24px;
+  font-size:1.1em;
+  cursor:pointer;
+  background:var(--main);
+  color:white;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+.nav-bar button:hover{background:var(--accent);transform:scale(1.05);}
+
+/* 🧩 الصفحات */
+.page{
+  position:absolute;top:0;left:0;
+  width:100%;height:100vh;
+  background:var(--light);
+  color:#333;
+  display:none;opacity:0;
+  z-index:5;
+}
+.page.active{display:block;opacity:1;animation:fadeZoom .6s ease;}
+@keyframes fadeZoom{from{opacity:0;transform:scale(0.96);}to{opacity:1;transform:scale(1);}}
+
+/* 📋 النماذج */
 .center{display:flex;justify-content:center;align-items:center;height:100vh;}
-.form-card{background:#fff;border-radius:12px;box-shadow:0 6px 25px rgba(0,0,0,0.1);padding:30px;width:340px;text-align:center;}
+.form-card{
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 6px 25px rgba(0,0,0,0.15);
+  padding:30px;
+  width:340px;
+  text-align:center;
+}
 .form-card h2{color:var(--main);}
-.form-card input{width:100%;padding:10px;margin:10px 0;border:1px solid #ccc;border-radius:8px;}
-.form-card button{width:100%;background:var(--main);color:#fff;border:none;border-radius:8px;padding:10px;cursor:pointer;}
+.form-card input{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border:1px solid #ccc;
+  border-radius:8px;
+}
+.form-card button{
+  width:100%;
+  background:var(--main);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  padding:10px;
+  cursor:pointer;
+}
 .form-card button:hover{background:var(--accent);}
 .form-card a{color:var(--accent);text-decoration:none;}
 .form-card a:hover{text-decoration:underline;}
 
-/* Dashboard */
+/* 🔙 زر الرجوع */
+.back-btn{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  background:var(--main);
+  color:white;
+  border:none;
+  padding:12px 18px;
+  border-radius:50px;
+  font-size:1em;
+  font-weight:bold;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+  cursor:pointer;
+  z-index:999;
+}
+.back-btn:hover{background:var(--accent);transform:translateY(-2px);}
+
+/* 📊 الداشبورد */
 .dashboard{min-height:100vh;background:#f7f4e8;padding:20px;}
-.topbar{display:flex;justify-content:space-between;align-items:center;background:white;padding:12px 20px;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.1);}
-.tabs{display:flex;gap:10px;margin-top:20px;}
-.tab{background:white;padding:8px 16px;border-radius:20px;cursor:pointer;color:var(--main);font-weight:bold;box-shadow:0 3px 8px rgba(0,0,0,0.1);}
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  background:white;padding:12px 20px;border-radius:10px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+.tabs{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.tab{
+  background:white;padding:8px 16px;border-radius:20px;
+  cursor:pointer;color:var(--main);font-weight:bold;
+  box-shadow:0 3px 8px rgba(0,0,0,0.1);
+}
 .tab.active{background:var(--main);color:white;}
 .tab:hover{background:var(--accent);color:white;}
-.chart-area{background:white;border-radius:10px;padding:20px;margin-top:20px;box-shadow:0 5px 15px rgba(0,0,0,0.1);}
-.table-box{background:white;border-radius:10px;margin-top:20px;padding:20px;box-shadow:0 5px 15px rgba(0,0,0,0.1);}
-table{width:100%;border-collapse:collapse;}
-th,td{padding:8px;border-bottom:1px solid #ddd;text-align:center;}
+.chart-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:20px;
+  margin-top:20px;
+}
+.chart-box{
+  background:white;
+  border-radius:10px;
+  padding:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
 th{background:var(--main);color:white;}
+th,td{padding:8px;text-align:center;border-bottom:1px solid #ddd;}
+
+/* ⚠️ التحذير */
 .alert-modal{
   position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.7);display:none;justify-content:center;align-items:center;z-index:1000;
+  background:rgba(0,0,0,0.7);display:none;
+  justify-content:center;align-items:center;z-index:1000;
 }
 .alert-box{
-  background:#fff;padding:25px;border-radius:10px;max-width:500px;color:#333;text-align:center;
-  animation:fadeIn .5s ease;
+  background:#fff;padding:25px;border-radius:10px;
+  max-width:500px;color:#333;text-align:center;
 }
 .alert-box h3{color:#c0392b;}
-.alert-box button{margin-top:15px;background:var(--main);color:white;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;}
+.alert-box button{
+  margin-top:15px;background:var(--main);color:white;
+  border:none;padding:10px 18px;border-radius:8px;cursor:pointer;
+}
 </style>
 </head>
 
 <body>
-<!-- Home -->
-<section class="home active" id="home">
+
+<!-- 🌴 الصفحة الرئيسية -->
+<section class="home" id="home">
   <div class="home-content">
-    <h1>نظام الكشف المبكر عن سوسة النخيل الحمراء</h1>
+    <h1>نظام الكشف المبكر عن سوسة النخيل الحمراء 🌴</h1>
     <div class="nav-bar">
       <button onclick="showPage('login')">تسجيل الدخول</button>
       <button onclick="showPage('signup')">إنشاء حساب</button>
@@ -76,45 +191,47 @@ th{background:var(--main);color:white;}
   </div>
 </section>
 
-<!-- Login -->
+<!-- 🔐 تسجيل الدخول -->
 <section class="page" id="login">
   <div class="center">
     <div class="form-card">
       <h2>تسجيل الدخول</h2>
-      <input type="text" id="loginUser" placeholder="اسم المستخدم" />
-      <input type="password" id="loginPass" placeholder="كلمة المرور" />
+      <input type="text" id="loginUser" placeholder="اسم المستخدم">
+      <input type="password" id="loginPass" placeholder="كلمة المرور">
       <button onclick="login()">دخول</button>
       <p><a href="#" onclick="showPage('forgot')">نسيت كلمة المرور؟</a></p>
-      <p>تجريبي: admin / 12345</p>
+      <p style="font-size:0.9em;color:#666;">تجريبي: admin / 12345</p>
     </div>
   </div>
+  <button class="back-btn" onclick="goBack()">⬅ رجوع</button>
 </section>
 
-<!-- Signup -->
+<!-- 🧾 إنشاء حساب -->
 <section class="page" id="signup">
   <div class="center">
     <div class="form-card">
       <h2>إنشاء حساب جديد</h2>
-      <input type="text" placeholder="اسم المستخدم" />
-      <input type="password" placeholder="كلمة المرور" />
+      <input type="text" placeholder="اسم المستخدم">
+      <input type="password" placeholder="كلمة المرور">
       <button onclick="showPage('login')">تسجيل</button>
-      <p><a href="#" onclick="showPage('login')">عودة لتسجيل الدخول</a></p>
     </div>
   </div>
+  <button class="back-btn" onclick="goBack()">⬅ رجوع</button>
 </section>
 
-<!-- Forgot Password -->
+<!-- 🔑 نسيان كلمة المرور -->
 <section class="page" id="forgot">
   <div class="center">
     <div class="form-card">
-      <h2>نسيت كلمة المرور</h2>
-      <input type="email" placeholder="أدخل بريدك الإلكتروني" />
-      <button onclick="showPage('login')">إرسال رابط التعيين</button>
+      <h2>إعادة تعيين كلمة المرور</h2>
+      <input type="email" placeholder="أدخل بريدك الإلكتروني">
+      <button onclick="showPage('login')">إرسال رابط إعادة التعيين</button>
     </div>
   </div>
+  <button class="back-btn" onclick="goBack()">⬅ رجوع</button>
 </section>
 
-<!-- Dashboard -->
+<!-- 📊 لوحة الداشبورد -->
 <section class="page" id="dashboard">
   <div class="dashboard">
     <div class="topbar">
@@ -128,39 +245,32 @@ th{background:var(--main);color:white;}
       <div class="tab" onclick="switchTab('prediction')">التنبؤ والإنذار</div>
     </div>
 
-    <!-- التاريخ -->
-    <div id="tab-history" class="chart-area">
-      <canvas id="chart1"></canvas>
+    <!-- 🔹 التاريخ -->
+    <div id="tab-history" class="chart-grid">
+      <div class="chart-box"><canvas id="chart1"></canvas></div>
+      <div class="chart-box"><canvas id="chart2"></canvas></div>
     </div>
 
-    <!-- التحليل -->
-    <div id="tab-analysis" class="chart-area" style="display:none;">
-      <canvas id="chart2"></canvas>
-      <canvas id="chart3" style="margin-top:30px;"></canvas>
-      <div class="table-box">
-        <h3>📋 قراءات الحساسات اليومية</h3>
-        <table>
-          <tr><th>التاريخ</th><th>عدد السوس</th><th>الحرارة °C</th><th>الرطوبة %</th><th>CO₂ ppm</th></tr>
-          <tbody id="dataTable"></tbody>
-        </table>
-      </div>
+    <!-- 🔹 التحليل -->
+    <div id="tab-analysis" class="chart-grid" style="display:none;">
+      <div class="chart-box"><canvas id="chart3"></canvas></div>
+      <div class="chart-box"><canvas id="chart4"></canvas></div>
     </div>
 
-    <!-- التنبؤ -->
-    <div id="tab-prediction" class="chart-area" style="display:none;">
-      <h3>التنبؤ بعدد السوس القادمة 🧠</h3>
-      <p id="alertText"></p>
-      <canvas id="chart4"></canvas>
+    <!-- 🔹 التنبؤ -->
+    <div id="tab-prediction" class="chart-grid" style="display:none;">
+      <div class="chart-box"><canvas id="chart5"></canvas></div>
+      <div class="chart-box"><canvas id="chart6"></canvas></div>
     </div>
   </div>
+  <button class="back-btn" onclick="goBack()">⬅ رجوع</button>
 </section>
 
-<!-- 🔴 نافذة تحذير -->
+<!-- ⚠️ نافذة التحذير -->
 <div class="alert-modal" id="alertModal">
   <div class="alert-box">
     <h3>⚠️ تحذير: نشاط مرتفع لسوسة النخيل الحمراء!</h3>
     <p>تشير البيانات إلى زيادة كبيرة في عدد السوس خلال الأيام الأخيرة.</p>
-    <p><b>نصائح المكافحة:</b></p>
     <ul style="text-align:right;list-style:circle;">
       <li>قم بفحص جذوع النخيل القريبة يدويًا.</li>
       <li>استخدم المصائد الفرمونية بشكل متقارب.</li>
@@ -177,98 +287,87 @@ const data=[
   {date:"2025-11-02",insects:28,temp:35,hum:63,co2:440},
   {date:"2025-11-03",insects:32,temp:36,hum:66,co2:450},
   {date:"2025-11-04",insects:38,temp:37,hum:68,co2:460},
-  {date:"2025-11-05",insects:41,temp:38,hum:70,co2:470},
+  {date:"2025-11-05",insects:41,temp:38,hum:70,co2:470}
 ];
-let chart1,chart2,chart3,chart4;
+let charts=[];
 
+/* 📂 التنقل */
 function showPage(id){
-  document.querySelectorAll('.home,.page').forEach(p=>{p.classList.remove('active');p.style.opacity=0;});
-  setTimeout(()=>{document.getElementById(id).classList.add('active');document.getElementById(id).style.opacity=1;},200);
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('home').classList.add('hidden');
 }
-
+function goBack(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('home').classList.remove('hidden');
+}
 function login(){
   const u=document.getElementById('loginUser').value.trim();
   const p=document.getElementById('loginPass').value.trim();
   if(u==="admin"&&p==="12345"){showPage('dashboard');renderCharts();}
   else alert("بيانات الدخول غير صحيحة!");
 }
-
-function logout(){showPage('home');}
+function logout(){goBack();}
 function closeAlert(){document.getElementById('alertModal').style.display='none';}
 function switchTab(tab){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.chart-area').forEach(x=>x.style.display='none');
+  document.querySelectorAll('.chart-grid').forEach(x=>x.style.display='none');
   document.querySelector(`.tab:nth-child(${tab==='history'?1:tab==='analysis'?2:3})`).classList.add('active');
-  document.getElementById(`tab-${tab}`).style.display='block';
+  document.getElementById(`tab-${tab}`).style.display='grid';
 }
 
-// ✅ الرسومات
+/* 📊 الرسوم البيانية */
 function renderCharts(){
-  // 1️⃣ بيانات تاريخية
-  const ctx1=document.getElementById('chart1');
-  if(chart1)chart1.destroy();
-  chart1=new Chart(ctx1,{
+  charts.forEach(c=>c.destroy());
+  charts=[];
+  
+  // التاريخ
+  charts.push(new Chart(document.getElementById('chart1'),{
     type:'line',
-    data:{
-      labels:data.map(d=>d.date),
-      datasets:[
-        {label:'عدد السوس',data:data.map(d=>d.insects),borderColor:'#c0392b',tension:.3},
-        {label:'الحرارة',data:data.map(d=>d.temp),borderColor:'#e67e22',tension:.3},
-        {label:'الرطوبة',data:data.map(d=>d.hum),borderColor:'#16a085',tension:.3}
-      ]
-    },
-    options:{plugins:{legend:{position:'bottom'}}}
-  });
+    data:{labels:data.map(d=>d.date),
+      datasets:[{label:'عدد السوس',data:data.map(d=>d.insects),borderColor:'#c62828',tension:.3,fill:false},
+                {label:'الحرارة',data:data.map(d=>d.temp),borderColor:'#f9a825',tension:.3,fill:false}]},
+    options:{plugins:{legend:{position:'bottom'}}}}));
 
-  // 2️⃣ تحليل بياني (أعمدة)
-  const ctx2=document.getElementById('chart2');
-  if(chart2)chart2.destroy();
-  chart2=new Chart(ctx2,{
+  charts.push(new Chart(document.getElementById('chart2'),{
     type:'bar',
-    data:{
-      labels:data.map(d=>d.date),
-      datasets:[
-        {label:'عدد السوس',data:data.map(d=>d.insects),backgroundColor:'#c0392b'},
-        {label:'CO₂',data:data.map(d=>d.co2/10),backgroundColor:'#8e44ad'}
-      ]
-    },
-    options:{plugins:{legend:{position:'bottom'}}}
-  });
+    data:{labels:data.map(d=>d.date),
+      datasets:[{label:'الرطوبة',data:data.map(d=>d.hum),backgroundColor:'#2e7d32'},
+                {label:'CO₂',data:data.map(d=>d.co2/10),backgroundColor:'#6a1b9a'}]},
+    options:{plugins:{legend:{position:'bottom'}}}}));
 
-  // 3️⃣ توزيع بيئي (دائري)
-  const ctx3=document.getElementById('chart3');
-  if(chart3)chart3.destroy();
-  chart3=new Chart(ctx3,{
+  // التحليل
+  charts.push(new Chart(document.getElementById('chart3'),{
     type:'pie',
-    data:{
-      labels:['حرارة','رطوبة','CO₂'],
-      datasets:[{data:[36,65,450/10],backgroundColor:['#e67e22','#16a085','#8e44ad']}]
-    }
-  });
+    data:{labels:['حرارة','رطوبة','CO₂'],
+          datasets:[{data:[36,65,45],backgroundColor:['#f9a825','#2e7d32','#6a1b9a']}]}}));
 
-  // 4️⃣ تنبؤات
-  const ctx4=document.getElementById('chart4');
-  if(chart4)chart4.destroy();
+  charts.push(new Chart(document.getElementById('chart4'),{
+    type:'radar',
+    data:{labels:['حرارة','رطوبة','CO₂','عدد السوس'],
+          datasets:[{label:'تحليل بيئي',data:[36,65,45,35],backgroundColor:'rgba(27,94,32,0.4)',borderColor:'#1b5e20'}]}}));
+
+  // التنبؤ
   const last=data[data.length-1].insects;
-  const predict=[];
-  for(let i=1;i<=5;i++){predict.push(last+(Math.random()*6-2));}
-  chart4=new Chart(ctx4,{
+  const predict=[], tempPredict=[];
+  for(let i=1;i<=5;i++){
+    predict.push(last+(Math.random()*6-2));
+    tempPredict.push(35+(Math.random()*3));
+  }
+
+  charts.push(new Chart(document.getElementById('chart5'),{
     type:'line',
-    data:{
-      labels:['+1 يوم','+2 يوم','+3 يوم','+4 يوم','+5 يوم'],
-      datasets:[{label:'توقعات عدد السوس',data:predict,borderColor:'#2980b9',fill:false,tension:.3}]
-    },
-    options:{plugins:{legend:{position:'bottom'}}}
-  });
+    data:{labels:['+1 يوم','+2 يوم','+3 يوم','+4 يوم','+5 يوم'],
+          datasets:[{label:'توقع عدد السوس',data:predict,borderColor:'#0277bd',tension:.3,fill:false}]},
+    options:{plugins:{legend:{position:'bottom'}}}}));
 
-  // 📋 تعبئة الجدول
-  const table=document.getElementById('dataTable');
-  table.innerHTML="";
-  data.forEach(d=>{
-    table.innerHTML+=`<tr><td>${d.date}</td><td>${d.insects}</td><td>${d.temp}</td><td>${d.hum}</td><td>${d.co2}</td></tr>`;
-  });
+  charts.push(new Chart(document.getElementById('chart6'),{
+    type:'bar',
+    data:{labels:['+1','+2','+3','+4','+5'],
+          datasets:[{label:'توقع درجات الحرارة',data:tempPredict,backgroundColor:'#f9a825'}]},
+    options:{plugins:{legend:{position:'bottom'}}}}));
 
-  // 🔥 تحليل الخطر
+  // 🔥 تنبيه الخطر
   const avgInsects=data.reduce((a,b)=>a+b.insects,0)/data.length;
   const avgTemp=data.reduce((a,b)=>a+b.temp,0)/data.length;
   const avgHum=data.reduce((a,b)=>a+b.hum,0)/data.length;
